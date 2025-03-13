@@ -8,16 +8,31 @@ const url =
 //   .catch((err) => console.log(err));
 
 //   XMLHttpRequest 改成自訂 promise 格式
-function getUrl(url) {
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
-    xhr.onload = () => resolve(xhr.responseText);
-    xhr.onerror = () => reject(xhr.statusText);
-    xhr.send();
-  });
-}
+// function getUrl(url) {
+//   return new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("GET", url);
+//     xhr.onload = () => resolve(xhr.responseText);
+//     xhr.onerror = () => reject(xhr.statusText);
+//     xhr.send();
+//   });
+// }
 
-getUrl(url)
+//改成axios格式
+const axios = {
+  get: function (url) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      xhr.onload = () => resolve(xhr.responseText);
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.send();
+    });
+  },
+};
+
+//promise的 resolve對接.then, reject對接.catch
+axios
+  .get(url)
   .then((res) => console.log("res", res))
   .catch((err) => console.log("err", err));
